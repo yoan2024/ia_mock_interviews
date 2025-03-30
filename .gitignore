@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#JSON
+entrenamiento-ia-b2e69-firebase-adminsdk-fbsvc-2ccca7952d.json
