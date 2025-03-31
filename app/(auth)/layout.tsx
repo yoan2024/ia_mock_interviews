@@ -7,9 +7,6 @@ export default async function RootLayout({children}: Readonly<{
 }>) {
 
 
-    console.log("Server  Google API Key:", process.env.DEEPSEEK_API_KEY);
-
-
     const isVerificated = await isAuthenticated();
 
     if (isVerificated) {
