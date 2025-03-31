@@ -11,7 +11,7 @@ const DisplayCard = ({interviewId, type, createdAt, techstack, userId, role}: In
 
     const feedback = null as Feedback | null;
     const isTechnical = /mix/gi.test(type) ? 'Mixed' : type
-    const fechaProgramminj = dayjs(feedback?.createdAt || createdAt || new Date()).format('YYYY-MM-DD');
+    const fechaProgramming = dayjs(feedback?.createdAt || createdAt || new Date()).format('YYYY-MM-DD');
 
     return (
         <div className="card-border w-[360px] max-sm:w-full min-h-full">
@@ -32,7 +32,7 @@ const DisplayCard = ({interviewId, type, createdAt, techstack, userId, role}: In
                             <div className="flex flex-row gap-2">
                                 <div className="flex flex-row gap-2">
                                     <Image src="/calendar.svg" width={15} height={15} alt="calendar"/>
-                                    <p>{fechaProgramminj}</p>
+                                    <p>{fechaProgramming}</p>
                                 </div>
                                 <div className="flex flex-row gap-2">
                                     <Image src="/star.svg" alt="start icon" width={15} height={15}/>

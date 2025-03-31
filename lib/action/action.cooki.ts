@@ -40,16 +40,21 @@ export async function getCurrentUser(): Promise<User | null> {
     }
     try {
         const decodeClaims = await auth.verifySessionCookie(cookiValue, true)
-        const record = await db.collection("users").doc(decodeClaims.uid).get()
+        const userRecord = await db.collection("users").doc(decodeClaims.uid).get()
 
-        if (!record.exists) {
+
+        if (!userRecord.exists) {
             //Eliminar la cookie si el usuario no existe en la base de datos
 
             cooki.delete("sesion");
             return null;
         }
 
-        return record.data() as User
+
+        return {
+            ...userRecord.data(),
+            id: userRecord.id,
+        } as User
 
     } catch (e: any) {
         cooki.delete("sesion");

@@ -35,7 +35,8 @@ export async function signUp(params: SignUpParams) {
             name,
             email,
             password,
-            createdAt: new Date().toLocaleString()
+            createdAt: new Date().toLocaleString(),
+            userid: userUid.id
         })
 
 
