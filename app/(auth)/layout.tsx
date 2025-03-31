@@ -6,6 +6,10 @@ export default async function RootLayout({children}: Readonly<{
     children: React.ReactNode;
 }>) {
 
+
+    console.log("Server  Google API Key:", process.env.DEEPSEEK_API_KEY);
+
+
     const isVerificated = await isAuthenticated();
 
     if (isVerificated) {
