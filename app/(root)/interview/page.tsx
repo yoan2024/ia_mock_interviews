@@ -4,6 +4,8 @@ import {getCurrentUser} from "@/lib/action/action.cooki";
 
 const Page = async () => {
 
+    const user = await getCurrentUser();
+
 
     return (
         <>
