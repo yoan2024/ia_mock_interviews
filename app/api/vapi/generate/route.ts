@@ -16,6 +16,7 @@ export async function POST(request: Request) {
     // Obtenemos el ID del usuario
     const iduser = usuario?.id || null;
     console.log("DEBUG: ID del usuario:", iduser);
+////
 
     if (!iduser) {
         console.error("ERROR: No se pudo obtener el ID del usuario. Verifica la cookie de sesión.");
