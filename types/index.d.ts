@@ -14,6 +14,7 @@ interface Feedback {
 }
 
 interface Interview {
+    email: string;
     id: string;
     role: string;
     level: string;
@@ -36,6 +37,7 @@ interface User {
     name: string;
     email: string;
     id: string;
+    userid: string;
 }
 
 interface InterviewCardProps {
@@ -67,7 +69,7 @@ interface GetFeedbackByInterviewIdParams {
 }
 
 interface GetLatestInterviewsParams {
-    userId: string | undefined;
+    email: string | undefined;
     limit?: number;
 }
 

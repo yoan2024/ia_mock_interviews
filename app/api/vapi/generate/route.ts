@@ -7,6 +7,8 @@ import {google} from "@ai-sdk/google";
 
 export async function POST(request: Request) {
     const {type, role, level, techstack, amount, userid} = await request.json();
+    const user = await getCurrentUser();
+    const email = user?.email
 
 
     try {
@@ -24,27 +26,23 @@ export async function POST(request: Request) {
         });
 
 
-        const user = await getCurrentUser();
-        const iduser = user?.id
-
         const interview = {
             role,
             type,
             level,
             techstack: techstack.split(','),
             questions: JSON.parse(questions),
-            userId: iduser,
+            email: email,
             finalized: true,
             coverImage: getRandomInterviewCover(),
             createdAt: new Date().toISOString(),
         };
 
-
         await db.collection("interviews").add(interview);
 
-        return Response.json({success: true}, {status: 200});
+        return Response.json({message: "todo salio correcto", email: email}, {status: 200,});
     } catch (error) {
         console.error("ERROR:", error);
-        return Response.json({success: false, error}, {status: 500});
+        return Response.json({success: false, error: error}, {status: 500});
     }
 }

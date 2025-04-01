@@ -77,3 +77,24 @@ export async function getIduser(): Promise<string | null> {
 export async function isAuthenticated(): Promise<boolean> {
     return !!(await getCurrentUser());
 }
+
+
+export async function daticos() {
+    const user = await getCurrentUser();
+    const useid = user?.id;
+
+    const querySnapshot = await db
+        .collection("interviews")
+        .where("userId", "==", useid)
+        .get();
+
+    if (querySnapshot.empty) {
+        console.log("❌ Documento no encontrado");
+        return {user: null};
+    }
+
+    // Tomar el primer documento encontrado
+    const userRecord = querySnapshot.docs[0].data();
+
+    return {user: userRecord};
+}

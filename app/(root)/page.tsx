@@ -4,24 +4,27 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {dummyInterviews} from "@/constants";
 import DisplayCard from "@/components/DisplayCard";
-import {getCurrentUser} from "@/lib/action/action.cooki";
-import {getInterviewByUserId, getLatestInterviews} from "@/lib/action/getinterview";
+import {daticos, getCurrentUser} from "@/lib/action/action.cooki";
+import {db} from "@/firebase/admin";
+import {getInterviewByUserId} from '@/lib/action/getinterviews';
+import {getLatestInterviews} from "@/lib/action/getlatestinterview";
+
 
 const Home = async () => {
 
     const user = await getCurrentUser()
 
     const [interviews, latestinterviews] = await Promise.all([
-        await getInterviewByUserId({userId: user?.id}),
-        await getLatestInterviews({userId: user?.id})
+        await getInterviewByUserId({email: user?.email}),
+        await getLatestInterviews({email: user?.email})
     ])
+
+    console.log("logo:  ", interviews)
+
 
     const hasPastInterviews = interviews?.length > 0
     const hasUpcomingInterviews = latestinterviews?.length > 0
 
-
-    console.log(interviews, latestinterviews)
-    console.log(hasUpcomingInterviews, hasPastInterviews)
 
     return (
         <>
