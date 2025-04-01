@@ -39,6 +39,7 @@ export async function getCurrentUser(): Promise<User | null> {
     const cookiValue = cooki.get("sesion")?.value as string
 
     if (!cookiValue) {
+        console.log("la cooki no existe")
         return null;
     }
     try {
@@ -53,7 +54,7 @@ export async function getCurrentUser(): Promise<User | null> {
             return null;
         }
 
-
+        console.log("correo del usuario: ", userRecord.get("email"));
         return {
             ...userRecord.data(),
             id: userRecord.id,

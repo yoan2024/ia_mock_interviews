@@ -39,7 +39,7 @@ export async function POST(request: Request) {
 
         if (!email) {
             console.error("No email found for user.");
-            return NextResponse.json({success: false, error: "User email not found"}, {status: 400});
+            return NextResponse.json({success: false, error: user}, {status: 400});
         }
 
         const interview = {
