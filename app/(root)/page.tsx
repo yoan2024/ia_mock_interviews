@@ -19,8 +19,6 @@ const Home = async () => {
         await getLatestInterviews({email: user?.email})
     ])
 
-    console.log("logo:  ", interviews)
-
 
     const hasPastInterviews = interviews?.length > 0
     const hasUpcomingInterviews = latestinterviews?.length > 0

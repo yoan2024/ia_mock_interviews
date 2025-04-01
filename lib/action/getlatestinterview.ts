@@ -3,7 +3,7 @@ import {db} from "@/firebase/admin";
 export async function getLatestInterviews(params: GetLatestInterviewsParams): Promise<Interview[] | null> {
 
 
-    const {userId, limit = 20} = params;
+    const {email, limit = 20} = params;
 
 
     const interview = await db.collection("interviews")
