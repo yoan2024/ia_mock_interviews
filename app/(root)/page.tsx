@@ -12,8 +12,8 @@ import {getLatestInterviews} from "@/lib/action/getlatestinterview";
 
 const Home = async () => {
 
-    const user = await getCurrentUser()
-
+    const user = await getCurrentUser();
+    
     const [interviews, latestinterviews] = await Promise.all([
         await getInterviewByUserId({email: user?.email}),
         await getLatestInterviews({email: user?.email})

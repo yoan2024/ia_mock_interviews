@@ -19,9 +19,9 @@ export async function setCookiUser(idToken: string): Promise<void> {
     })
 
     Cookies.set('sesion', cooky, {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: WEEK,
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: "lax",
         path: "/"
     })
@@ -29,7 +29,7 @@ export async function setCookiUser(idToken: string): Promise<void> {
     console.log("DEBUG: Cookie creada con éxito:", cooky);
 }
 
-[/*process.env.NODE_ENV === 'production'*/]
+[/**/]
 
 export async function getCurrentUser(): Promise<User | null> {
 
