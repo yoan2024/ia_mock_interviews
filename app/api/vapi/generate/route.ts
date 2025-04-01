@@ -38,11 +38,7 @@ export async function POST(request: Request) {
 
 
         const user = await getCurrentUser();
-        const email = user?.email;
-        if (!email) {
-            console.error("No email found for user.");
-            return NextResponse.json({success: false, error: email}, {status: 400});
-        }
+
 
         const interview = {
             role,
@@ -50,7 +46,7 @@ export async function POST(request: Request) {
             level,
             techstack: techstack.split(','),
             questions: parsedQuestions,
-            email,
+            email: "yoansebastian@gmail.com",
             finalized: true,
             coverImage: getRandomInterviewCover(),
             createdAt: new Date().toISOString(),
