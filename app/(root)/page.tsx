@@ -2,10 +2,8 @@ import React from 'react'
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import {dummyInterviews} from "@/constants";
 import DisplayCard from "@/components/DisplayCard";
-import {daticos, getCurrentUser, testUser} from "@/lib/action/action.cooki";
-import {db} from "@/firebase/admin";
+import {getCurrentUser} from "@/lib/action/action.cooki";
 import {getInterviewByUserId} from '@/lib/action/getinterviews';
 import {getLatestInterviews} from "@/lib/action/getlatestinterview";
 
@@ -19,8 +17,6 @@ const Home = async () => {
         await getLatestInterviews({email: user?.email})
     ])
 
-    const baba = await testUser()
-    console.log("baba:", baba)
 
     const hasPastInterviews = interviews?.length > 0
     const hasUpcomingInterviews = latestinterviews?.length > 0
@@ -54,7 +50,7 @@ const Home = async () => {
                             <DisplayCard {...interview} key={interview.id}/>
                         ))
                     ) : (
-                        <p>You haven't take any interviews yet</p>
+                        <p>You haven take any interviews yet</p>
                     )}
 
                 </div>

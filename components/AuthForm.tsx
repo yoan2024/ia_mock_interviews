@@ -10,7 +10,6 @@ import {Button} from "@/components/ui/button"
 import {Form} from "@/components/ui/form"
 import FormField from "@/components/FormField";
 import toast from "react-hot-toast";
-import {auth} from "@/firebase/client";
 import {signUp} from "@/lib/action/action.signup";
 import {signIn} from '@/lib/action/action.signin';
 import {useRouter} from "next/navigation";

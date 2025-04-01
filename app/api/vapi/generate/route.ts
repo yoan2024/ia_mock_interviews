@@ -1,13 +1,15 @@
 import {getRandomInterviewCover} from "@/lib/utils";
 import {db} from "@/firebase/admin";
-import {getCurrentUser, testUser} from "@/lib/action/action.cooki";
+import {getCurrentUser} from "@/lib/action/action.cooki";
 import {generateText} from "ai";
 import {google} from "@ai-sdk/google";
 import {NextResponse} from "next/server";
 
 export async function POST(request: Request) {
+    const {type, role, level, techstack, amount, userid} = await request.json();
+
+
     try {
-        const {type, role, level, techstack, amount, userid} = await request.json();
 
         console.log("Received data:", {type, role, level, techstack, amount, userid});
 
@@ -34,13 +36,12 @@ export async function POST(request: Request) {
             return NextResponse.json({success: false, error: "Invalid question format"}, {status: 500});
         }
 
-        const user = await testUser();
+
+        const user = await getCurrentUser();
         const email = user?.email;
-        const id = user?.id;
-        const hola = "hola"
         if (!email) {
             console.error("No email found for user.");
-            return NextResponse.json({success: false, error: hola}, {status: 400});
+            return NextResponse.json({success: false, error: email}, {status: 400});
         }
 
         const interview = {
@@ -66,6 +67,3 @@ export async function POST(request: Request) {
     }
 }
 
-
-//hola como estas{
-var hola = "hola"

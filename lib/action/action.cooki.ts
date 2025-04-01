@@ -47,14 +47,6 @@ export async function getCurrentUser(): Promise<User | null> {
         const userRecord = await db.collection("users").doc(decodeClaims.uid).get()
 
 
-        if (!userRecord.exists) {
-            //Eliminar la cookie si el usuario no existe en la base de datos
-            console.log("el ususario no existe en la firestore su cooki uid no existe en la base de datos")
-            cooki.delete("sesion");
-            return null;
-        }
-
-        console.log("correo del usuario: ", userRecord.get("email"));
         return {
             ...userRecord.data(),
             id: userRecord.id,
@@ -69,43 +61,12 @@ export async function getCurrentUser(): Promise<User | null> {
 }
 
 
-export async function getIduser(): Promise<string | null> {
-    const user = await getCurrentUser();
-    return user?.id || null;
-}
-
-
 export async function isAuthenticated(): Promise<boolean> {
     return !!(await getCurrentUser());
 }
 
 
-export async function daticos() {
-    const user = await getCurrentUser();
-    const useid = user?.id;
-
-    const querySnapshot = await db
-        .collection("interviews")
-        .where("userId", "==", useid)
-        .get();
-
-    if (querySnapshot.empty) {
-        console.log("❌ Documento no encontrado");
-        return {user: null};
-    }
-
-    // Tomar el primer documento encontrado
-    const userRecord = querySnapshot.docs[0].data();
-
-    return {user: userRecord};
-}
 
 
-export async function testUser() {
-    const user = await getCurrentUser();
-    if (!user) {
-        return {user: "no se pudo encontrar desde action.cooki"};
-    }
-    return user
-}
+
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {cn, getRandomInterviewCover} from "@/lib/utils";
+import {getRandomInterviewCover} from "@/lib/utils";
 import Image from "next/image";
 import dayjs from "dayjs";
 import Link from 'next/link';
