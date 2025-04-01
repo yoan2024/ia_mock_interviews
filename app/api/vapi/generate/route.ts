@@ -1,27 +1,13 @@
 import {getRandomInterviewCover} from "@/lib/utils";
 import {db} from "@/firebase/admin";
-import {getCurrentUser} from "@/lib/action/action.cooki";
+import {getCurrentUser, getIduser} from "@/lib/action/action.cooki";
 import {generateText} from "ai";
 import {google} from "@ai-sdk/google";
 
+
 export async function POST(request: Request) {
-    const {type, role, level, techstack, amount} = await request.json();
+    const {type, role, level, techstack, amount, userid} = await request.json();
 
-    // Intentamos obtener el usuario desde la cookie
-    const usuario = await getCurrentUser();
-
-    // 🔥 Agregamos logs de depuración
-    console.log("DEBUG: Usuario obtenido:", usuario);
-
-    // Obtenemos el ID del usuario
-    const iduser = usuario?.id || null;
-    console.log("DEBUG: ID del usuario:", iduser);
-////
-
-    if (!iduser) {
-        console.error("ERROR: No se pudo obtener el ID del usuario. Verifica la cookie de sesión.");
-        return Response.json({success: false, error: "No se pudo obtener el usuario."}, {status: 401});
-    }
 
     try {
         const {text: questions} = await generateText({
@@ -37,6 +23,10 @@ export async function POST(request: Request) {
             ["Question 1", "Question 2", "Question 3"]`
         });
 
+
+        const user = await getCurrentUser();
+        const iduser = user?.id
+
         const interview = {
             role,
             type,
@@ -46,10 +36,9 @@ export async function POST(request: Request) {
             userId: iduser,
             finalized: true,
             coverImage: getRandomInterviewCover(),
-            createAt: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
         };
 
-        console.log("DEBUG: Datos a guardar en Firestore:", interview);
 
         await db.collection("interviews").add(interview);
 

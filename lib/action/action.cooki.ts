@@ -19,14 +19,17 @@ export async function setCookiUser(idToken: string): Promise<void> {
     })
 
     Cookies.set('sesion', cooky, {
-        httpOnly: true,
+        httpOnly: false,
         maxAge: WEEK,
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         sameSite: "lax",
         path: "/"
     })
+
+    console.log("DEBUG: Cookie creada con éxito:", cooky);
 }
 
+[/*process.env.NODE_ENV === 'production'*/]
 
 export async function getCurrentUser(): Promise<User | null> {
 
@@ -45,7 +48,7 @@ export async function getCurrentUser(): Promise<User | null> {
 
         if (!userRecord.exists) {
             //Eliminar la cookie si el usuario no existe en la base de datos
-
+            console.log("el ususario no existe en la firestore su cooki uid no existe en la base de datos")
             cooki.delete("sesion");
             return null;
         }
@@ -58,10 +61,18 @@ export async function getCurrentUser(): Promise<User | null> {
 
     } catch (e: any) {
         cooki.delete("sesion");
+        console.log("hubo un error en la funcion de obtener el currentUser de action.cooki")
         return null;
     }
 
 }
+
+
+export async function getIduser(): Promise<string | null> {
+    const user = await getCurrentUser();
+    return user?.id || null;
+}
+
 
 export async function isAuthenticated(): Promise<boolean> {
     return !!(await getCurrentUser());

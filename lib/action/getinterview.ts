@@ -3,7 +3,7 @@ import {db} from "@/firebase/admin";
 export async function getInterviewByUserId(userId: any): Promise<Interview[] | null> {
 
 
-    const interview = await db.collection("interviews").where("userid", '==', userId).orderBy('createdAt', 'desc').get();
+    const interview = await db.collection("interviews").where("userId", '==', userId).orderBy('createdAt', 'desc').get();
 
 
     return interview.docs.map((doc) => (
