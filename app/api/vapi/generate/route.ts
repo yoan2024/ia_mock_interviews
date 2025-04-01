@@ -1,6 +1,6 @@
 import {getRandomInterviewCover} from "@/lib/utils";
 import {db} from "@/firebase/admin";
-import {getCurrentUser} from "@/lib/action/action.cooki";
+import {getCurrentUser, testUser} from "@/lib/action/action.cooki";
 import {generateText} from "ai";
 import {google} from "@ai-sdk/google";
 import {NextResponse} from "next/server";
@@ -34,12 +34,13 @@ export async function POST(request: Request) {
             return NextResponse.json({success: false, error: "Invalid question format"}, {status: 500});
         }
 
-        const user = await getCurrentUser();
+        const user = await testUser();
         const email = user?.email;
-
+        const id = user?.id;
+        const hola = "hola"
         if (!email) {
             console.error("No email found for user.");
-            return NextResponse.json({success: false, error: user}, {status: 400});
+            return NextResponse.json({success: false, error: hola}, {status: 400});
         }
 
         const interview = {

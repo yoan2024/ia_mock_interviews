@@ -99,3 +99,13 @@ export async function daticos() {
 
     return {user: userRecord};
 }
+
+
+export async function testUser() {
+    const user = await getCurrentUser();
+    if (!user) {
+        return {user: "no se pudo encontrar desde action.cooki"};
+    }
+    return user
+}
+
